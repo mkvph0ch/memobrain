@@ -10,7 +10,7 @@ pandas
 scikit-learn
 jupyterlab
 seaborn
-tensorflow
+nibabel #for loading MRI images
 
 # tests/linter
 black
