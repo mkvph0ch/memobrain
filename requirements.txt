@@ -10,7 +10,6 @@ pandas
 scikit-learn
 jupyterlab
 seaborn
-scikit-learn
 nibabel #for loading MRI images
 
 # tests/linter
