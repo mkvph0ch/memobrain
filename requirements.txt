@@ -10,7 +10,7 @@ pandas
 scikit-learn
 jupyterlab
 seaborn
-tensorflow
+tensorflow-macos
 
 # tests/linter
 black
