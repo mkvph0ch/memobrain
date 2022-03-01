@@ -11,6 +11,8 @@ scikit-learn
 jupyterlab
 seaborn
 nibabel #for loading MRI images
+# tensorflow-macos # for M1 Mac Only
+# tensorflow # for Windows Only
 
 # tests/linter
 black
