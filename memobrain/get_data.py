@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from wand.image import Image
 
 ### GCP Storage - - - - - - - - - - - - - - - - - - - - - -
-BUCKET_NAME = 'memobrain2'
+BUCKET_NAME = 'memobrain'
 BUCKET_TRAIN_DATA_PATH = '/'
 
 ##### Data  - - - - - - - - - - - - - - - - - - - - - - - -
@@ -52,22 +52,11 @@ def get_data():
             #print(blob)
             #while ct < 2500:
             #print(blob.name)
-            if blob.name.endswith(".gif"):
-                #print("iamge loaded")
-                #print(blob.name)
-                #print("iamge loaded")
+            if blob.name.endswith(".jpg"):
                 #blob.download_to_filename('downloaded_image.png')
-                arr = np.ones(3)
-                #print(arr)
-                path = r'gs://memobrain2/OASIS1/OAS1_RAW/OAS1_0001_MR1/PROCESSED/MPRAGE/SUBJ_111/OAS1_0001_MR1_mpr_n4_anon_sbj_111_sag_88.gif'
-                print(path)
-                image = cv2.imread(path,0)
-                #print("iamge loaded")
-                #image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
-                #image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
+                image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
                 #print(bytearray(blob.download_as_string()))
                 #image = nib.load(bytearray(blob.download_as_string()))#.get_fdata()
-                #image = nib.load(blob.path).get_fdata()
                 #image = Image.open("downloaded_image.png") #.convert('RGB')
                 #print(image.shape)
                 images.append(image)
@@ -77,26 +66,11 @@ def get_data():
 
         return images
 
-    imgs = list_blobs_with_prefix(BUCKET_NAME, 'OASIS1/OAS1_RAW/OAS1_0001_MR1/PROCESSED/MPRAGE/SUBJ_111/', '/')
+    imgs = list_blobs_with_prefix(BUCKET_NAME, 'raw_data/OASIS1/OAS1_RAW/OAS1_0001_MR1/PROCESSED/MPRAGE/SUBJ_111/', '/')
 
     #save_file_to_gcp('test', imgs)
     print('Getting data completed')
     return imgs
-
-def get_data_test():
-    """method to get the training data (or a portion of it) from google cloud bucket"""
-    df = pd.read_csv(f"gs://{BUCKET_NAME}/{BUCKET_TRAIN_DATA_PATH}", nrows=1000)
-    return df
-
-def get_data_new():
-    file = 'gs://memobrain2/OASIS2/OAS2_RAW/OAS2_0001_MR1/RAW/mpr-1.nifti.img'
-    image = nib.load(file).get_fdata()
-    return image
-
-def get_gif():
-    file = 'gsutil gs://memobrain2/OASIS1/OAS1_RAW/OAS1_0001_MR1/PROCESSED/MPRAGE/SUBJ_111/ OAS1_0001_MR1_mpr_n4_anon_sbj_111_sag_88.gif'
-    image = vision.Image(source=vision.ImageSource(image_uri=file))
-    return image
 
 if __name__ == '__main__':
     # get training data from GCP bucket
