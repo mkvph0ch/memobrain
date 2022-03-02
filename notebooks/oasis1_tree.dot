@@ -1,0 +1,34 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="futura"] ;
+edge [fontname="futura"] ;
+rankdir=LR ;
+0 [label="MMSE <= -0.125\ngini = 0.412\nsamples = 176\nvalue = [125, 51]\nclass = mild", fillcolor="#f0b48a"] ;
+1 [label="SES <= 1.5\ngini = 0.497\nsamples = 87\nvalue = [47, 40]\nclass = mild", fillcolor="#fbece2"] ;
+0 -> 1 [labeldistance=2.5, labelangle=-45, headlabel="True"] ;
+2 [label="eTIV <= 0.509\ngini = 0.298\nsamples = 11\nvalue = [9, 2]\nclass = mild", fillcolor="#eb9d65"] ;
+1 -> 2 ;
+3 [label="gini = 0.0\nsamples = 6\nvalue = [6, 0]\nclass = mild", fillcolor="#e58139"] ;
+2 -> 3 ;
+4 [label="gini = 0.48\nsamples = 5\nvalue = [3, 2]\nclass = mild", fillcolor="#f6d5bd"] ;
+2 -> 4 ;
+5 [label="nWBV <= 0.675\ngini = 0.5\nsamples = 76\nvalue = [38, 38]\nclass = mild", fillcolor="#ffffff"] ;
+1 -> 5 ;
+6 [label="gini = 0.346\nsamples = 9\nvalue = [7, 2]\nclass = mild", fillcolor="#eca572"] ;
+5 -> 6 ;
+7 [label="gini = 0.497\nsamples = 67\nvalue = [31, 36]\nclass = moderate", fillcolor="#e4f1fb"] ;
+5 -> 7 ;
+8 [label="M/F <= 0.5\ngini = 0.217\nsamples = 89\nvalue = [78, 11]\nclass = mild", fillcolor="#e99355"] ;
+0 -> 8 [labeldistance=2.5, labelangle=45, headlabel="False"] ;
+9 [label="nWBV <= 0.774\ngini = 0.097\nsamples = 59\nvalue = [56, 3]\nclass = mild", fillcolor="#e68844"] ;
+8 -> 9 ;
+10 [label="gini = 0.191\nsamples = 28\nvalue = [25, 3]\nclass = mild", fillcolor="#e89051"] ;
+9 -> 10 ;
+11 [label="gini = 0.0\nsamples = 31\nvalue = [31, 0]\nclass = mild", fillcolor="#e58139"] ;
+9 -> 11 ;
+12 [label="Age <= -0.618\ngini = 0.391\nsamples = 30\nvalue = [22, 8]\nclass = mild", fillcolor="#eeaf81"] ;
+8 -> 12 ;
+13 [label="gini = 0.0\nsamples = 11\nvalue = [11, 0]\nclass = mild", fillcolor="#e58139"] ;
+12 -> 13 ;
+14 [label="gini = 0.488\nsamples = 19\nvalue = [11, 8]\nclass = mild", fillcolor="#f8ddc9"] ;
+12 -> 14 ;
+}
