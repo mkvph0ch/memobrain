@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 #requirements
 import nibabel as nib
 from pathlib import Path
-
+from sklearn.cluster import KMeans
 
 
 def get_file_paths(file_ext = 'img', ipath = '/Users/guehojang/code/Gueho/mkvph0ch/memobrain/raw_data/OASIS2'):
@@ -66,8 +66,14 @@ def get_plane_img_df(file_ext = 'img',
     file_lists = []
     for i in full_path[:number]:
         if plane == 'sag':
-            mri_file = nib.load(i).get_fdata()[:,:,64]
-            file_lists.append([i, mri_file])
+            img = nib.load(i).get_fdata()[:,:,64]
+            x = img.shape[0]
+            y = img.shape[1]
+            img_re = img.reshape(x * y, 1)
+            km16 = KMeans(n_clusters=16).fit(img_re)
+            km16_compressed = np.array(km16.cluster_centers_[km16.labels_])
+            img_comp = km16_compressed.reshape(x, y, 1).astype('uint8')
+            file_lists.append([i, img_comp])
 
         elif plane == 'cor':
             mri_file = nib.load(i).get_fdata()[128,:,:]
