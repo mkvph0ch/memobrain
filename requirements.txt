@@ -4,13 +4,19 @@ setuptools>=26
 twine
 wheel>=0.29
 
+# image processing
+opencv-python
+nibabel #for loading raw MRI images
+
 # data science
 numpy
 pandas
 scikit-learn
 jupyterlab
 seaborn
-scikit-learn
+plotly
+# tensorflow-macos # for M1 Mac Only
+# tensorflow # for Windows Only
 
 # tests/linter
 black
@@ -32,3 +38,4 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+python-dotenv
