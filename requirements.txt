@@ -4,8 +4,9 @@ setuptools>=26
 twine
 wheel>=0.29
 
-# viz
+# image processing
 opencv-python
+nibabel #for loading raw MRI images
 
 # data science
 numpy
@@ -13,7 +14,7 @@ pandas
 scikit-learn
 jupyterlab
 seaborn
-nibabel #for loading MRI images
+plotly
 # tensorflow-macos # for M1 Mac Only
 # tensorflow # for Windows Only
 
