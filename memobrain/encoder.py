@@ -1,4 +1,5 @@
 from sklearn.compose import ColumnTransformer
+import pandas as pd
 
 class CustomColumnTransformer(ColumnTransformer):
     def transform(self, *args, **kwargs):
