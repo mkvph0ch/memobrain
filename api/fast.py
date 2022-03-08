@@ -27,7 +27,14 @@ def predict(sex='F', age = 20, Educ='Some college', SES=1, MMSE=25, eTIV=1.2, nW
     sex = sex.replace('F', '0')
 
     # Encode Education
-    #Educ = Educ.map({''})
+    education = {'Lower than high school': '1',
+                'High school graduate': '2',
+                'Some college': '3',
+                'College graduate': '4',
+                'Beyond college': '5'}
+
+    for k, v in education.items():
+        Educ = Educ.replace(k, v)
 
     result = {
     "M/F": int(sex),
@@ -42,14 +49,14 @@ def predict(sex='F', age = 20, Educ='Some college', SES=1, MMSE=25, eTIV=1.2, nW
 
     X_pred = pd.DataFrame(result, index=[0])
 
-    # pipeline = joblib.load("model.joblib")
-    # prediction = pipeline.predict(X_pred)
+    pipeline = joblib.load("model.joblib")
+    prediction = pipeline.predict(X_pred)
 
-    # prediction_result =  {"diagnosis": prediction[0]}
+    prediction_result =  {"diagnosis": prediction[0]}
 
     return X_pred
 
 if __name__ == "__main__":
-    print("1234")
-    result = predict()
-    print(result)
+    print("It works")
+    #result = predict()
+    #print(result)
