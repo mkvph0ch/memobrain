@@ -1,5 +1,6 @@
 from sklearn import set_config; set_config(display='diagram')
 from sklearn.model_selection import train_test_split
+from termcolor import colored
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -9,10 +10,13 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
 import joblib
 import pandas as pd
 from data import get_data, clean_data
-from encoders import CustomColumnTransformer
+#from encoders import CustomColumnTransformer
+from memobrain.encoder import CustomColumnTransformer
+from memobrain.gcp import storage_upload
 
 class Trainer():
 
@@ -41,7 +45,7 @@ class Trainer():
         pre_pipe = CustomColumnTransformer([
             ('num_transformer', numerical_transformer, numerical_features),
             ('encoder', OneHotEncoder(drop = "if_binary"), binary_cat)])
-    
+
 
         self.pipeline = Pipeline([
             ('preprocessor', pre_pipe),
@@ -71,7 +75,10 @@ if __name__ == "__main__":
     X, y = clean_data(df)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-    trainer = Trainer(X_train, y_train)
-    trainer.run()
-    acc, rec, prec = trainer.evaluate(X_test, y_test)
-    print(f"Accuracy: {acc}, Recall: {rec}, Precision: {prec}")
+    #trainer = Trainer(X_train, y_train)
+    print(X_test)
+    #trainer.run()
+    #acc, rec, prec = trainer.evaluate(X_test, y_test)
+    #print(f"Accuracy: {acc}, Recall: {rec}, Precision: {prec}")
+    #trainer.save_model_locally()
+    #storage_upload()
