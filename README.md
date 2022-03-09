@@ -1,8 +1,8 @@
 # Data analysis
 - Document here the project: memobrain
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+- Description: Predict AD on MR Images and Patients Metadata
+- Data Source: https://www.oasis-brains.org/
+- Type of analysis: Deep Learning / Machine Learning
 
 Please document the project the better you can.
 
