@@ -1,9 +1,13 @@
+from cgitb import html
 import streamlit as st
+from PIL import Image
 from streamlit_option_menu import option_menu
+from datetime import datetime, date
+import streamlit.components.v1 as components
 import requests
 
 # Configuring page
-st.set_page_config(page_title='MemoBrain', page_icon='🧠', layout="centered", initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title='MemoBrain', page_icon='🧠', initial_sidebar_state="auto", menu_items=None)
 
 # Navigation Bar
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
@@ -20,10 +24,10 @@ st.markdown("""
         <a class="nav-link disabled" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://github.com/mkvph0ch/memobrain" target="_blank">Code</a>
+        <a class="nav-link" href="https://github.com/mkvph0ch/memobrain" target="_blank">📄 <b> Source code </b></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://www.lewagon.com/" target="_blank">LeWagon</a>
+        <a class="nav-link" href="https://www.lewagon.com/" target="_blank">🚂 <b>LeWagon</b></a>
       </li>
     </ul>
   </div>
@@ -32,11 +36,12 @@ st.markdown("""
 
 
 # Menu in SideBar
-with st.sidebar.expander('👇🏻 CLICK ME'):
-    choose = option_menu("Welcome", ["Home", "About", "MemoBrain App", "Our Project", "Contact"],
-                         icons=['house', 'emoji-smile', 'app-indicator','journal-text','person lines fill'],
-                         menu_icon="list", default_index=0,
-                         styles={
+with st.sidebar.expander('📋 CLICK TO DISPLAY MENU'):
+#with st.sidebar():
+    choose = option_menu(None, ["Home", "About", "MemoBrain", "Our Project", "Contact"],
+                            icons=['house', 'emoji-smile', 'app-indicator','journal-text','person lines fill'],
+                            menu_icon="list", default_index=0, orientation='vertical',
+                            styles={
         "container": {"padding": "5!important", "background-color": "#fafafa"},
         "icon": {"color": "black", "font-size": "20px"},
         "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
@@ -51,10 +56,13 @@ with st.sidebar.expander('👇🏻 CLICK ME'):
 if choose == 'Home':
     new_title = '<p style="font-family:DomaineDisplayNarrow, Georgia, serif; text-align: center; font-size: 42px;"> Welcome to MemoBrain </p>'
     st.markdown(new_title, unsafe_allow_html=True)
-    st.markdown(""" MemoBrain uses Machine Learning and Deep Learning algorithms to aid in the diagnosis of Alzheimer's Disease.
-
-
-    Disclaimer: Please be aware that any positive diagnosis will need to be reviewed by a professional.""")
+    components.html("""<p style="font-family:DomaineDisplayNarrow, Georgia, serif; text-align: center; font-size: 18px;">
+    We use powerful machine learning algorithms to aid in the diagnosis of Alzheimer's Disease.</p>""")
+    # col1, col2, col3 = st.columns(3)
+    # with col2:
+    st.image("https://media-exp1.licdn.com/dms/image/C5612AQHP5WYhYOHFRg/article-cover_image-shrink_720_1280/0/1590038951387?e=1652313600&v=beta&t=9W81QeX1liNEpegeLH9FQ0ris8coyYBnDteDOpLcxTE", use_column_width=True)
+    components.html("""<p style="font-family:DomaineDisplayNarrow, Georgia, serif; text-align: center; font-size: 18px;">
+    Click on the sidebar menu to start 👆🏼</p>""")
 
 # About Us Page
 if choose == "About":
@@ -63,18 +71,35 @@ if choose == "About":
     st.markdown(new_title, unsafe_allow_html=True)
     col1, col2 = st.columns( [0.8, 0.2])
     with col1:               # To display the header text using css style
+
+        st.markdown('<p class="font">Project Details</p>', unsafe_allow_html=True)
+        st.markdown("""
+    **Project Title**: Neurocognitive Disease Prediction on Brain MRI
+
+    **Batch**: #815
+
+    **App**: MemoBrain
+
+    **ML model**: Random forest classifier""")
+
         st.markdown(""" <style> .font {
-        font-size:35px ; font-family: DomaineDisplayNarrow, Georgia, serif; color: navy;}
-        </style> """, unsafe_allow_html=True)
+            font-size:35px ; text-align: cennter; font-family: DomaineDisplayNarrow, Georgia, serif; color: navy;}
+            </style> """, unsafe_allow_html=True)
         st.markdown('<p class="font">About the Creators</p>', unsafe_allow_html=True)
+        st.markdown("""
+    **Names**: Marko, GueHo, Vicente, Cynthia
+    """)
+        st.write("We are a group of four students attending LeWagon Data Science Bootcamp in Berlin.")
+        image_team = Image.open('Memobrain_Demoday.png')
+        st.image(image_team)
+
+
     with col2:               # To display brand log
         pass
 
-    st.write("We are a group of data science students attending LeWagon Bootcamp in Berlin.")
-
 
 # App Page
-if choose == "MemoBrain App":
+if choose == "MemoBrain":
     col1, col2 = st.columns( [0.8, 0.2])
     with col1:
         st.markdown(""" <style> .font {
@@ -96,16 +121,33 @@ if choose == "MemoBrain App":
         education = st.selectbox('SELECT LEVEL OF EDUCATION COMPLETED:',
      ('Lower than high school', 'High school graduate', 'Some college', 'College graduate', 'Beyond college'))
         score = st.number_input('SCORE ON MINI-MENTAL STATE EXAMINATION:', min_value = 0, max_value = 30, step = 1)
+        nWBV = st.number_input("SELECT nWBV:")
 
     with col2:
         dob = st.date_input("DATE OF BIRTH:")
         ses = st.selectbox('SOCIOECONOMIC STATUS:', ('1', '2', '3'))
+        etiv = st.number_input("SELECT eTIV:")
+        ASF = st.number_input("SELECT ASF:")
 
     submitted = st.button("Submit")
     with st.spinner('Please wait a few seconds...'):
         #time.sleep(5)
         if submitted:
             st.success('Here are your results:')
+
+    st.markdown("""
+    **Note:**
+
+    **MMSE**: Mini-Mental State Examination
+
+    **SES**: Socioeconomic Status
+
+    **eTIV**: Estimated Total Intercranial Volume (mm3)
+
+    **nWBV**: Normalized Whole Brain Volume
+
+    **ASF**: Atlas Scaling Factor
+    """)
 
 # Our Project Page
 if choose == "Our Project":
@@ -115,9 +157,13 @@ if choose == "Our Project":
         font-size:35px ; font-family: DomaineDisplayNarrow, Georgia, serif; color: navy;}
         </style> """, unsafe_allow_html=True)
         st.markdown('<p class="font">Our Project</p>', unsafe_allow_html=True)
+        st.write("Here, we provide a description of how we went about the project. Have fun reading!")
         st.subheader("Datasets")
-        st.write("OASIS 1")
-        st.write("OASIS 2")
+        st.write("OASIS 1 and OASIS 2")
+        st.write("Our datasets consisted of Oasis 1 and Oasis 2. The main difference between the two datasets are. Since the greatest known risk factor of AD is increasing age, the majority of people with Alzheimer's are 65 and older. ")
+
+        image = Image.open('oasis_age.png')
+        st.image(image)
 
         st.subheader("Preprocessing")
         st.markdown(""" Owing to lack of samples of people with 'moderate' dementia, we decided to reduce our four CDR classes to two classes: whether a person has Alzheimer's Disease or not. """)
@@ -132,10 +178,11 @@ if choose == "Our Project":
         - Decision Tree Classifier
         - AdaBoostClassifier()
         - RandomForestClassifier()
-        - XGBoost
+        - AdaBoost
         """)
 
         st.subheader("Deep Learning")
+        st.write("To process our MRI images, we went forward for Convolutional Neural Networks.")
 
 # Contact Page
 if choose == "Contact":
@@ -155,7 +202,14 @@ if choose == "Contact":
             st.write('Thanks for your contacting us. We will respond to your questions or inquiries as soon as possible!')
 
 # API
-# dictionary = {
-#     "M/F": sex,
-#     "Age": age
-# }
+
+# AN EXAMPLE
+# url = 'example'
+# response = requests.get(url, dictionary).json()
+# response = requests.get("https://taxifare.lewagon.ai/predict", dictionary).json()
+# fare = "$" + str(round(response['fare'], 2))
+# st.metric("ESTIMATED COSTS", fare)
+# st.metric("ESTIMATED DISTANCE", distance_func(lat1,lon1,lat2,lon2))
+
+url = 'example'
+response = requests.get(url, dictionary).json()
