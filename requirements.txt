@@ -26,9 +26,13 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+uvicorn
+fastapi
+streamlit
 
 # utilities
 six>=1.14
 joblib
 memoized-property
 termcolor
+python-dotenv
