@@ -9,14 +9,14 @@ def get_data():
     return df
 
 def clean_data(df, test=False):
-                '''drops unneeded columns:
+    """ Drops unneeded columns:
     - 'MR Delay', 'Group' and 'Visit' (this information does not apply to the analysis)
     - 'Hand' (all patients are right handed)
     - 'Subject ID', 'MRI ID' (they are just identification strings)
 
-    It splits the dataset into X and y. The target column 'CDR' is transformed into a binary class, giving the value of 0 to Non Demented and 1 to Demented (some level).'''    
-    X=data.drop(columns=['CDR', 'MR Delay', 'Subject ID', 'MRI ID', 'Group', 'Visit', 'Hand'])
-    y=data['CDR'].apply(lambda x: 1 if x>0 else 0)
+    It splits the dataset into X and y. The target column 'CDR' is transformed into a binary class, giving the value of 0 to Non Demented and 1 to Demented (some level) """
+    X=df.drop(columns=['CDR', 'MR Delay', 'Subject ID', 'MRI ID', 'Group', 'Visit', 'Hand'])
+    y=df['CDR'].apply(lambda x: 1 if x>0 else 0)
     X['SES'].fillna(value=X['SES'].median(), inplace=True)
     X['MMSE'].fillna(value=X['MMSE'].median(), inplace=True)
     return X, y

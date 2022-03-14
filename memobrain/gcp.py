@@ -1,7 +1,7 @@
 import os
 from google.cloud import storage
 from termcolor import colored
-from MemoBrainModel.params import BUCKET_NAME, MODEL_NAME, MODEL_VERSION
+from memobrain.params import BUCKET_NAME, MODEL_NAME, MODEL_VERSION
 
 
 def storage_upload(rm=False):
